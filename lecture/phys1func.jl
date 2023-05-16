@@ -20,7 +20,7 @@ function calc_circular(om,R) # 円運動の軌道を計算する
     return ts,xs,ys,xvs,yvs,xas,yas
 end
 
-function gen_circularanim(data1;xvel=false,yvel=false,trj=false,ang=false,vel=false,accs=false) # 円運動の動画を作る
+function gen_circularanim(data1;xvel=false,yvel=false,trj=false,ang=false,vel=false,accs=false,strobe=false) # 円運動の動画を作る
     ts = data1[1]
     xs = data1[2]
     ys = data1[3]
@@ -33,7 +33,12 @@ function gen_circularanim(data1;xvel=false,yvel=false,trj=false,ang=false,vel=fa
     r = 5 # 質点の半径
     anim = Animation()
     for i in 1:length(ts)
-        plt=plot(xs[i] .+r*cos.(theta),ys[i].+r*sin.(theta),aspectratio=1,xlims=(-100,100),ylims=(-100,100),label="",xlabel="x",ylabel="y",linecolor=:blue,linewidth=5) # 質点のプロット
+        plt=plot(xs[i] .+r*cos.(theta),ys[i].+r*sin.(theta),aspectratio=1,xlims=(-100,100),ylims=(-100,100),label="",xlabel="x",ylabel="y",linecolor=:blue,linewidth=3) # 質点のプロット
+        if strobe == true
+            for j in 1:i 
+                plt=plot!(xs[j] .+r*cos.(theta),ys[j].+r*sin.(theta),aspectratio=1,xlims=(-100,100),ylims=(-100,100),label="",xlabel="x",ylabel="y",linecolor=:blue,linewidth=3)
+            end
+        end
         if trj==true
             plt=plot!(xs[1:i],ys[1:i],label="t=$(ts[i])",legend = :bottomleft,foreground_color_legend = :white,alpha=0.2,linewidth=5) # 軌道のプロット
         end
