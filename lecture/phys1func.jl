@@ -33,14 +33,14 @@ function gen_circularanim(data1;xvel=false,yvel=false,trj=false,ang=false,vel=fa
     r = 5 # 質点の半径
     anim = Animation()
     for i in 1:length(ts)
-        plt=plot(xs[i] .+r*cos.(theta),ys[i].+r*sin.(theta),aspectratio=1,xlims=(-100,100),ylims=(-100,100),label="",xlabel="x",ylabel="y",linecolor=:blue,linewidth=3) # 質点のプロット
+        plt=plot(xs[i] .+r*cos.(theta),ys[i].+r*sin.(theta),aspectratio=1,xlims=(-100,100),ylims=(-100,100),label="t=$(ts[i])",xlabel="x",ylabel="y",linecolor=:blue,linewidth=3) # 質点のプロット
         if strobe == true
             for j in 1:i 
                 plt=plot!(xs[j] .+r*cos.(theta),ys[j].+r*sin.(theta),aspectratio=1,xlims=(-100,100),ylims=(-100,100),label="",xlabel="x",ylabel="y",linecolor=:blue,linewidth=3)
             end
         end
         if trj==true
-            plt=plot!(xs[1:i],ys[1:i],label="t=$(ts[i])",legend = :bottomleft,foreground_color_legend = :white,alpha=0.2,linewidth=3) # 軌道のプロット
+            plt=plot!(xs[1:i],ys[1:i],legend = :bottomleft,foreground_color_legend = :white,alpha=0.2,linewidth=3) # 軌道のプロット
         end
         if vel==true
             plt=plot!([xs[i],xs[i]+xvs[i]], [ys[i],ys[i]+yvs[i]], arrow = arrow(),label="v",linewidth=3) # 速度のプロット
@@ -248,7 +248,7 @@ function gen_circularanim_mp4(data1,data2;xvel=false,yvel=false,trj=false,ang=fa
         end
         frame(anim,plt)
     end
-    gif(anim,"anim2.mp4",fps=20)
+    gif(anim,"ss.mp4",fps=20)
 end
 
 
